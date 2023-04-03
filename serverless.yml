@@ -1,0 +1,35 @@
+service: serverless-websocket-nest
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-northeast-2
+  iam:
+    role:
+      name: lambda-sns-role
+      managedPolicies:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+  environment:
+    NODE_ENV: ${param:NODE_ENV, 'dev'}
+
+package:
+  include:
+    - dist/**/*
+    - node_modules/**/*
+  exclude:
+    - terraform/**/*
+    - src/**/*
+
+functions:
+  # AWS Lambda Function
+  mainHandler:
+    handler: dist/handler/lambda.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
