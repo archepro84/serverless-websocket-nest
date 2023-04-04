@@ -2,6 +2,9 @@ service: serverless-websocket-nest
 
 frameworkVersion: '3'
 
+plugins:
+  - serverless-dotenv-plugin
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -33,3 +36,7 @@ functions:
       - http:
           method: ANY
           path: '{proxy+}'
+
+custom:
+  dotenv:
+    path: .env
