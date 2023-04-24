@@ -9,11 +9,6 @@ provider:
   name: aws
   runtime: nodejs18.x
   region: ap-northeast-2
-  iam:
-    role:
-      name: lambda-sns-role
-      managedPolicies:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
   environment:
     NODE_ENV: ${param:NODE_ENV, 'dev'}
 
