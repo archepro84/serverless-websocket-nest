@@ -20,6 +20,28 @@ resource "aws_dynamodb_table" "Users" {
   }
 }
 
+resource "aws_dynamodb_table" "UserConnections" {
+  name         = local.user_connections_table_name
+  billing_mode = "PAY_PER_REQUEST"
+
+  hash_key  = "PK"
+  range_key = "SK"
+
+  attribute {
+    name = "PK"
+    type = "S"
+  }
+
+  attribute {
+    name = "SK"
+    type = "S"
+  }
+
+  tags = {
+    Name = "${local.project_name}-${local.user_connections_table_name}"
+  }
+}
+
 resource "aws_dynamodb_table" "ChatRooms" {
   name         = local.chat_rooms_table_name
   billing_mode = "PAY_PER_REQUEST"
