@@ -19,8 +19,10 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config test/jest-e2e.json",
     "prettify": "prettier --write --ignore-path .gitignore \"**/*.{css,html,js,ts,json,md,yaml,yml}\"",
-    "deploy": "nest build && serverless deploy --verbose --param=\"NODE_ENV=dev\"",
-    "sls:deploy": "nest build && serverless deploy --param=\"NODE_ENV=dev\""
+    "dev": "nest build && serverless offline --verbose --stage development --param=\"NODE_ENV=development\"",
+    "sls:dev": "nest build && serverless offline --stage development --param=\"NODE_ENV=development\"",
+    "deploy": "nest build && serverless deploy --verbose --stage production --param=\"NODE_ENV=production\"",
+    "sls:deploy": "nest build && serverless deploy --verbose --stage production --param=\"NODE_ENV=production\""
   },
   "dependencies": {
     "@aws-sdk/client-apigatewaymanagementapi": "^3.303.0",
