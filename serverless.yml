@@ -3,14 +3,16 @@ service: serverless-websocket-nest
 frameworkVersion: '3'
 
 plugins:
-  - serverless-dotenv-plugin
+  - serverless-offline
+
+useDotenv: true
 
 provider:
   name: aws
   runtime: nodejs18.x
   region: ap-northeast-2
   environment:
-    NODE_ENV: ${param:NODE_ENV, 'dev'}
+    NODE_ENV: ${param:NODE_ENV, 'development'}
 
 package:
   include:
@@ -33,5 +35,7 @@ functions:
           path: '{proxy+}'
 
 custom:
-  dotenv:
-    path: .env
+  # Serverless Offline Plugin
+  serverless-offline:
+    httpPort: 3500
+    websocketPort: 3501
