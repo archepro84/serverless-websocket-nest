@@ -10,7 +10,21 @@ useDotenv: true
 provider:
   name: aws
   runtime: nodejs18.x
-  region: ap-northeast-2
+  region: ${env:REGION}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${env:USERS_TABLE}
+            - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${env:USER_CONNECTIONS_TABLE}
+            - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${env:CHAT_ROOMS_TABLE}
+            - arn:aws:dynamodb:${aws:region}:${aws:accountId}:table/${env:CHATS_TABLE}
   environment:
     NODE_ENV: ${param:NODE_ENV, 'development'}
 
